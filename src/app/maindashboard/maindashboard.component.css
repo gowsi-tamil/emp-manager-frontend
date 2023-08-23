@@ -1,0 +1,7 @@
+agm-map{
+    width: 100%;
+    height: 150px
+}
+.table td:last-child {
+    width: 30%;
+}

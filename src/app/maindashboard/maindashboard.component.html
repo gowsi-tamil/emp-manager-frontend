@@ -1,0 +1,96 @@
+<nav class="navbar navbar-light bg-primary">
+	<div class="container-fluid">
+		<h4 style="color:aliceblue">Company List</h4>
+		
+		<div class="d-flex">
+			<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Company</button>
+		</div>
+	</div>
+</nav>
+<!-- <table class="table mt-3 table-striped"> -->
+	<table class="table mt-4  table-striped">
+
+	<thead>
+		<tr>
+			<th scope="col">Id</th>
+			<th scope="col">company Name</th>
+			<th scope="col">Address</th>
+			<th scope="col">Action</th>
+            <th scope="col">Employee</th>
+            <th scope="col">delete</th>
+            <th scope="col">map</th>
+
+		</tr>
+	</thead>
+	<tbody>
+
+		<tr  *ngFor="let company of listCompany">
+			<td (click)="onSelect(company)">{{company.id}}</td>
+			<td (click)="onSelect(company)">{{company.company_name}}</td>
+			<td (click)="onSelect(company)">{{company.address}}</td>
+			<td>
+				<button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal"
+					(click)="onEditCompany(company,$event)">Edit</button>
+			</td>
+            <td>
+				
+					<a [routerLink]="['/employees']" [queryParams]="{ company_name: company.company_name }" class="btn btn-info">List</a>
+
+			</td>   
+			<td>
+				<button (click)="deleteCompany(company)" type="button" class="btn btn-info">delete</button>
+
+			</td>  
+			<td>
+				
+				  <agm-map 
+  [latitude]="company.coordinates.coordinates[1]" [longitude]="company.coordinates.coordinates[0]" [zoom]="11">
+  <agm-marker 
+    [latitude]="company.coordinates.coordinates[1]" [longitude]="company.coordinates.coordinates[0]">
+  </agm-marker>
+</agm-map>
+
+			</td>
+
+			
+		</tr>
+
+
+	</tbody>
+
+</table>
+
+ <!--Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="companyForm" class="form-wrapper">
+					<div class="mb-3">
+						<label for="first-name" class="form-label">Company Name</label>
+						<input type="text" formControlName="company_name" class="form-control" id="company_name">
+
+					</div>
+					<div class="mb-3">
+						<label for="last-name" class="form-label">Address</label>
+						<!-- <input type="text" formControlName="address" class="form-control" id="last-name"> -->
+						<input type="text" formControlName="address" class="form-control" id="address" #search>
+
+					</div>
+			
+				
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="cancel-modal" type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">Cancel</button>
+				<button *ngIf="!editing" (click)="addCompany()" type="button" class="btn btn-primary">Add</button>
+				<button *ngIf="editing" (click)="updateCompany()" type="button" class="btn btn-primary">Update</button>
+			</div>
+		</div>
+	</div>
+</div>

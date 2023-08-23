@@ -1,0 +1,28 @@
+<table class="table mt-3 ">
+
+	<tbody>
+		<tr>
+			<th>id</th>
+			<td>{{company.id}}</td>
+
+		</tr>
+		<tr>
+			<th>Company Name</th>
+			<td>{{company.company_name}}</td>
+
+		</tr>
+		<tr>
+			<th>Address</th>
+			<td>{{company.address}}</td>
+
+	</tbody>
+
+</table>
+
+<agm-map 
+[latitude]="company.coordinates.coordinates[1]" [longitude]="company.coordinates.coordinates[0]">
+<agm-marker 
+  [latitude]="company.coordinates.coordinates[1]" [longitude]="company.coordinates.coordinates[0]">
+</agm-marker>
+</agm-map>
+

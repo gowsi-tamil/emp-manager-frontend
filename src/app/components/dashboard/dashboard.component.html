@@ -1,0 +1,119 @@
+<nav class="navbar navbar-light bg-primary">
+	<div class="container-fluid">
+		<h4 style="color:aliceblue">Employee List</h4>
+
+		<!-- <div class="d-flex">
+			<input type="search" class="form-control ds-input" id="search-input" placeholder="Search..."
+				aria-autocomplete="list" dir="auto" (keyup.enter)="onEnter($event)">
+		</div> -->
+		<div class="d-flex">
+			<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Employee</button>
+		</div>
+	</div>
+</nav>
+<table class="table mt-3 table-striped ">
+	<thead>
+		<tr>
+			<th scope="col">Id</th>
+			<th scope="col">First Name</th>
+			<th scope="col">Last Name</th>
+			<th scope="col">Action</th>
+			<th scope="col">Delete</th>
+			<th scope="col">Move</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		<tr *ngFor="let employee of listEmployee">
+			<td (click)="onSelect(employee)">{{employee.id}}</td>
+			<td (click)="onSelect(employee)">{{employee.first_name}}</td>
+			<td (click)="onSelect(employee)">{{employee.last_name}}</td>
+			<td>
+				<button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal"
+					(click)="onEditEmployee(employee,$event)">Edit</button>
+			</td>
+			<td>
+				<button (click)="deleteEmployee(employee)" type="button" class="btn btn-info">delete</button>
+
+			</td>
+			<td>
+				<select  #companySelect>
+				  <option class="btn btn-info" value="">Select company</option>
+				  <option *ngFor="let company of companyList" [value]="company">{{ company }}</option>
+				</select>
+				<button class="btn btn-info" (click)="moveemployee(companySelect.value,employee.id)">Move Employee</button>
+
+			  </td>
+  
+		</tr>
+
+
+	</tbody>
+
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="employeeForm" class="form-wrapper">
+					<div class="mb-3">
+						<label for="first-name" class="form-label">First Name <span class="text-danger">*</span></label>
+						<input type="text" formControlName="first_name" class="form-control" id="first-name" required>
+
+					</div>
+					<div class="mb-3">
+						<label for="last-name" class="form-label">Last Name <span class="text-danger">*</span></label>
+						<input type="text" formControlName="last_name" class="form-control" id="last-name" required>
+					</div>
+					<div class="mb-3">
+						<label for="email" class="form-label">Email</label>
+						<input type="email" formControlName="email" class="form-control" id="email">
+					</div>
+					<div class="mb-3">
+						<label for="job-title" class="form-label">Designation</label>
+						<input type="text" formControlName="job_title" class="form-control" id="job-title">
+					</div>
+					<div class="mb-3">
+						<label for="text" class="form-label">Date of Birth  (YYYY-MM-DD)</label>
+						<input type="text" formControlName="dob" class="form-control" id="dob">
+					</div>
+					<!-- <div class="mb-3">
+						<label for="company-name" class="form-label">Company Name</label>
+						<input type="text" formControlName="company_name" class="form-control" id="company-name">
+					</div> -->
+					<div class="mb-3">
+						<label for="language" class="form-label">Language</label>
+						<input type="text" formControlName="language" class="form-control" id="language">
+					</div>
+					<div class="mb-3">
+						<label for="status" class="form-label">Status  <span class="text-danger">*</span></label>
+						<select class="form-select from-control" formControlName="status" aria-label="Default select"
+							id="status">
+
+							<option value=true>Activate</option>
+							<option value=false>Deactivate</option>
+
+						</select>
+
+					</div>
+					<div class="mb-3">
+						<label for="preferred-color" class="form-label">Preferred Color</label>
+						<input type="text" formControlName="preferred_color" class="form-control" id="preferred-color">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="cancel-modal" type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">Cancel</button>
+				<button *ngIf="!editing" (click)="addEmployee()" type="button" class="btn btn-primary">Add</button>
+				<button *ngIf="editing" (click)="updateEmployee()" type="button" class="btn btn-primary">Update</button>
+			</div>
+		</div>
+	</div>
+</div>
