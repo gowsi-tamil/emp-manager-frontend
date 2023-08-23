@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  url1: string = 'http://localhost:5000/employee';
-  url2: string = 'http://localhost:5000/company';
+  url1: string = 'https://crewcontrol.onrender.com/employee';
+  url2: string = 'https://crewcontrol.onrender.com/company';
 //  url3: string = 'http://localhost:5000/employee/company_name';
 
 private nominatimApiUrl = 'https://nominatim.openstreetmap.org/search';
